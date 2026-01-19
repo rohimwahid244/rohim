@@ -1,177 +1,51 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Album Foto Keluarga (Privat)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1d2671, #c33764);
-      color: #fff;
-    }
-    .login {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .login-box {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-      max-width: 350px;
-      width: 100%;
-    }
-    .login-box h1 {
-      margin-bottom: 10px;
-    }
-    .login-box input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      margin: 15px 0;
-      font-size: 1rem;
-    }
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #fff;
-      color: #c33764;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .error {
-      color: #ffdddd;
-      font-size: 0.9rem;
-      display: none;
-    }
-    header {
-      text-align: center;
-      padding: 80px 20px 60px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 40px 20px 80px;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 25px;
-    }
-    .card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-    .card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-    }
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-    }
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      background: rgba(0,0,0,0.2);
-    }
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 20px;
-    }
-  </style>
-</head>
-<body>
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Play } from "lucide-react";
 
-<!-- LOGIN -->
-<div class="login" id="login">
-  <div class="login-box">
-    <h1>Album Keluarga</h1>
-    <p>Masukkan password</p>
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Masuk</button>
-    <div class="error" id="error">Password salah</div>
-  </div>
-</div>
+export default function MovieStreamingDemo() {
+  const movies = [
+    {
+      title: "Big Buck Bunny",
+      description: "Film animasi open movie dari Blender Foundation (public domain).",
+      thumbnail: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg",
+      video: "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+    },
+    {
+      title: "Sintel",
+      description: "Film pendek fantasi, gratis & legal untuk ditonton.",
+      thumbnail: "https://download.blender.org/durian/trailer/sintel_trailer-480p.jpg",
+      video: "https://download.blender.org/durian/movies/sintel-480p.mp4",
+    },
+  ];
 
-<!-- ALBUM -->
-<div id="album" style="display:none;">
-  <header>
-    <h1>ALBUM FOTO KELUARGA BAPAK MUSLIM</h1>
-    <p>Kenangan indah keluarga yang tak terlupakan</p>
-  </header>
+  return (
+    <div className="min-h-screen bg-gray-950 text-white p-6">
+      <h1 className="text-3xl font-bold mb-6">🎬 Nonton Film Online</h1>
 
-  <div class="container">
-    <div class="gallery">
-      <div class="card"><img src="foto1.jpg"><div class="overlay">Liburan</div></div>
-      <div class="card"><img src="foto2.jpg"><div class="overlay">Hari Raya</div></div>
-      <div class="card"><img src="foto3.jpg"><div class="overlay">Ulang Tahun</div></div>
-      <div class="card"><img src="foto4.jpg"><div class="overlay">Keluarga</div></div>
+      <div className="grid md:grid-cols-2 gap-6">
+        {movies.map((movie, index) => (
+          <Card key={index} className="bg-gray-900 border-gray-800 rounded-2xl">
+            <img
+              src={movie.thumbnail}
+              alt={movie.title}
+              className="rounded-t-2xl h-48 w-full object-cover"
+            />
+            <CardContent className="p-4">
+              <h2 className="text-xl font-semibold mb-2">{movie.title}</h2>
+              <p className="text-sm text-gray-400 mb-4">{movie.description}</p>
+              <a href={movie.video} target="_blank" rel="noreferrer">
+                <Button className="flex items-center gap-2">
+                  <Play size={18} /> Nonton
+                </Button>
+              </a>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <p className="text-xs text-gray-500 mt-8">
+        ⚠️ Demo ini hanya menggunakan film public domain & open license.
+      </p>
     </div>
-  </div>
-
-  <div class="lightbox" id="lightbox"><img></div>
-
-  <footer>
-    <p>© 2026 Dibuat oleh-Ade Rohim</p>
-  </footer>
-</div>
-
-<script>
-  const PASSWORD = "muslimfamily";
-
-  function login() {
-    const input = document.getElementById('password').value;
-    if (input === PASSWORD) {
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('album').style.display = 'block';
-    } else {
-      document.getElementById('error').style.display = 'block';
-    }
-  }
-
-  const cards = document.querySelectorAll('.card img');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-
-  cards.forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.style.display = 'flex';
-    });
-  });
-
-  lightbox.addEventListener('click', () => lightbox.style.display = 'none');
-</script>
-
-</body>
-</html>
+  );
+}
