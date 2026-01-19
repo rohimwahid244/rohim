@@ -116,4 +116,16 @@ body {
 .categories button:hover {
   background: red;
 }
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
 
