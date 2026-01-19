@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Album Foto Keluarga</title>
+  <title>Album Foto Keluarga (Privat)</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
@@ -13,17 +13,51 @@
       background: linear-gradient(135deg, #1d2671, #c33764);
       color: #fff;
     }
+    .login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-box {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      max-width: 350px;
+      width: 100%;
+    }
+    .login-box h1 {
+      margin-bottom: 10px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin: 15px 0;
+      font-size: 1rem;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #fff;
+      color: #c33764;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .error {
+      color: #ffdddd;
+      font-size: 0.9rem;
+      display: none;
+    }
     header {
       text-align: center;
       padding: 80px 20px 60px;
-    }
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
     }
     .container {
       max-width: 1200px;
@@ -41,21 +75,11 @@
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       cursor: pointer;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
     }
     .card img {
       width: 100%;
       height: 280px;
       object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-    .card:hover img {
-      transform: scale(1.1);
     }
     .overlay {
       position: absolute;
@@ -64,23 +88,12 @@
       display: flex;
       align-items: flex-end;
       padding: 20px;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .card:hover .overlay {
-      opacity: 1;
-    }
-    .overlay span {
-      font-size: 1rem;
-      font-weight: 500;
     }
     footer {
       text-align: center;
       padding: 30px 20px;
       background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(6px);
     }
-    /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -89,50 +102,63 @@
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      animation: fadeIn 0.3s ease;
     }
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 20px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @media (max-width: 600px) {
-      header h1 { font-size: 2.2rem; }
-      header p { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Album Foto Keluarga</h1>
-  <p>Koleksi momen berharga yang tak terlupakan</p>
-</header>
-
-<div class="container">
-  <div class="gallery">
-    <!-- Ganti src dan teks sesuai foto keluarga -->
-    <div class="card"><img src="foto1.jpg" alt=""><div class="overlay"><span>Liburan Keluarga</span></div></div>
-    <div class="card"><img src="foto2.jpg" alt=""><div class="overlay"><span>Hari Raya</span></div></div>
-    <div class="card"><img src="foto3.jpg" alt=""><div class="overlay"><span>Ulang Tahun</span></div></div>
-    <div class="card"><img src="foto4.jpg" alt=""><div class="overlay"><span>Momen Bahagia</span></div></div>
+<!-- LOGIN -->
+<div class="login" id="login">
+  <div class="login-box">
+    <h1>Album Keluarga</h1>
+    <p>Masukkan password</p>
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Masuk</button>
+    <div class="error" id="error">Password salah</div>
   </div>
 </div>
 
-<div class="lightbox" id="lightbox">
-  <img src="" alt="Preview">
+<!-- ALBUM -->
+<div id="album" style="display:none;">
+  <header>
+    <h1>Album Foto Keluarga</h1>
+    <p>Kenangan indah hanya untuk keluarga</p>
+  </header>
+
+  <div class="container">
+    <div class="gallery">
+      <div class="card"><img src="foto1.jpg"><div class="overlay">Liburan</div></div>
+      <div class="card"><img src="foto2.jpg"><div class="overlay">Hari Raya</div></div>
+      <div class="card"><img src="foto3.jpg"><div class="overlay">Ulang Tahun</div></div>
+      <div class="card"><img src="foto4.jpg"><div class="overlay">Keluarga</div></div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox"><img></div>
+
+  <footer>
+    <p>© 2026 Album Keluarga</p>
+  </footer>
 </div>
 
-<footer>
-  <p>© 2026 Album Keluarga • Dibuat oleh Ade Rohim ❤️</p>
-</footer>
-
 <script>
+  const PASSWORD = "muslimfamily";
+
+  function login() {
+    const input = document.getElementById('password').value;
+    if (input === PASSWORD) {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('album').style.display = 'block';
+    } else {
+      document.getElementById('error').style.display = 'block';
+    }
+  }
+
   const cards = document.querySelectorAll('.card img');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('img');
@@ -144,9 +170,7 @@
     });
   });
 
-  lightbox.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-  });
+  lightbox.addEventListener('click', () => lightbox.style.display = 'none');
 </script>
 
 </body>
