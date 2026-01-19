@@ -1,1 +1,153 @@
-Hello world 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Album Foto Keluarga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1d2671, #c33764);
+      color: #fff;
+    }
+    header {
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px 80px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    }
+    .card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .card:hover .overlay {
+      opacity: 1;
+    }
+    .overlay span {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(6px);
+    }
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 2.2rem; }
+      header p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Album Foto Keluarga</h1>
+  <p>Koleksi momen berharga yang tak terlupakan</p>
+</header>
+
+<div class="container">
+  <div class="gallery">
+    <!-- Ganti src dan teks sesuai foto keluarga -->
+    <div class="card"><img src="foto1.jpg" alt=""><div class="overlay"><span>Liburan Keluarga</span></div></div>
+    <div class="card"><img src="foto2.jpg" alt=""><div class="overlay"><span>Hari Raya</span></div></div>
+    <div class="card"><img src="foto3.jpg" alt=""><div class="overlay"><span>Ulang Tahun</span></div></div>
+    <div class="card"><img src="foto4.jpg" alt=""><div class="overlay"><span>Momen Bahagia</span></div></div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <img src="" alt="Preview">
+</div>
+
+<footer>
+  <p>© 2026 Album Keluarga • Dibuat oleh Ade Rohim ❤️</p>
+</footer>
+
+<script>
+  const cards = document.querySelectorAll('.card img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  cards.forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.style.display = 'flex';
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
