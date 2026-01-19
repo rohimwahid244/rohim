@@ -7,6 +7,20 @@
 </head>
 <body>
 
+  <!-- CATEGORY FILTER -->
+<div class="categories">
+  <button onclick="filterCategory('All')">All</button>
+  <button onclick="filterCategory('Action')">Action</button>
+  <button onclick="filterCategory('Anime')">Anime</button>
+  <button onclick="filterCategory('Drama')">Drama</button>
+</div>
+
+<!-- MOVIE LIST -->
+<section class="row">
+  <h3 id="categoryTitle">All Movies</h3>
+  <div class="movies" id="movieList"></div>
+</section>
+
 <!-- NAVBAR -->
 <nav class="navbar">
   <h1 class="logo">ROHIMFILM</h1>
