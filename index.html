@@ -1,50 +1,107 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Search, X } from "lucide-react";
 
-export default function MovieStreamingDemo() {
+export default function NetflixStyleStreaming() {
+  const [activeMovie, setActiveMovie] = useState(null);
+  const [search, setSearch] = useState("");
+
   const movies = [
     {
       title: "Big Buck Bunny",
-      description: "Film animasi open movie dari Blender Foundation (public domain).",
+      genre: "Animation",
+      description: "Film animasi open movie dari Blender Foundation.",
       thumbnail: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg",
       video: "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
     },
     {
       title: "Sintel",
-      description: "Film pendek fantasi, gratis & legal untuk ditonton.",
+      genre: "Fantasy",
+      description: "Film pendek fantasi open license.",
       thumbnail: "https://download.blender.org/durian/trailer/sintel_trailer-480p.jpg",
       video: "https://download.blender.org/durian/movies/sintel-480p.mp4",
     },
   ];
 
-  return (
-    <div className="min-h-screen bg-gray-950 text-white p-6">
-      <h1 className="text-3xl font-bold mb-6">🎬 Nonton Film Online</h1>
+  const filteredMovies = movies.filter((m) =>
+    m.title.toLowerCase().includes(search.toLowerCase())
+  );
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {movies.map((movie, index) => (
-          <Card key={index} className="bg-gray-900 border-gray-800 rounded-2xl">
-            <img
-              src={movie.thumbnail}
-              alt={movie.title}
-              className="rounded-t-2xl h-48 w-full object-cover"
-            />
-            <CardContent className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{movie.title}</h2>
-              <p className="text-sm text-gray-400 mb-4">{movie.description}</p>
-              <a href={movie.video} target="_blank" rel="noreferrer">
-                <Button className="flex items-center gap-2">
-                  <Play size={18} /> Nonton
-                </Button>
-              </a>
-            </CardContent>
-          </Card>
-        ))}
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Navbar */}
+      <nav className="flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black to-transparent fixed w-full z-50">
+        <h1 className="text-2xl font-bold text-red-600">NETFLIX</h1>
+        <div className="flex items-center gap-3">
+          <Search size={18} />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
+            className="bg-gray-900 px-3 py-1 rounded text-sm"
+          />
+        </div>
+      </nav>
+
+      {/* Hero */}
+      {!activeMovie && (
+        <div
+          className="h-[80vh] flex flex-col justify-end p-8 bg-cover bg-center"
+          style={{ backgroundImage: `url(${movies[0].thumbnail})` }}
+        >
+          <h2 className="text-4xl font-bold mb-3">{movies[0].title}</h2>
+          <p className="max-w-md text-gray-300 mb-4">{movies[0].description}</p>
+          <Button onClick={() => setActiveMovie(movies[0])}>
+            <Play size={18} /> Play
+          </Button>
+        </div>
+      )}
+
+      {/* Video Player */}
+      {activeMovie && (
+        <div className="fixed inset-0 bg-black z-50 flex flex-col">
+          <div className="flex justify-between items-center p-4">
+            <h2 className="text-xl font-semibold">{activeMovie.title}</h2>
+            <Button variant="ghost" onClick={() => setActiveMovie(null)}>
+              <X />
+            </Button>
+          </div>
+          <video
+            src={activeMovie.video}
+            controls
+            autoPlay
+            className="w-full h-full object-contain bg-black"
+          />
+        </div>
+      )}
+
+      {/* Movie Rows */}
+      <div className="px-6 mt-10">
+        <h3 className="text-lg font-semibold mb-4">Popular</h3>
+        <div className="flex gap-4 overflow-x-auto">
+          {filteredMovies.map((movie, i) => (
+            <Card
+              key={i}
+              className="min-w-[200px] bg-gray-900 cursor-pointer hover:scale-105 transition"
+              onClick={() => setActiveMovie(movie)}
+            >
+              <img
+                src={movie.thumbnail}
+                alt={movie.title}
+                className="h-40 w-full object-cover"
+              />
+              <CardContent className="p-2">
+                <p className="text-sm font-medium">{movie.title}</p>
+                <p className="text-xs text-gray-400">{movie.genre}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
 
-      <p className="text-xs text-gray-500 mt-8">
-        ⚠️ Demo ini hanya menggunakan film public domain & open license.
+      <p className="text-xs text-gray-500 p-6">
+        ⚠️ Demo Netflix-style. Konten menggunakan film legal & open license.
       </p>
     </div>
   );
