@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Upload Film</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <h1 class="logo">ADMIN</h1>
+  <a href="index.html" style="color:white">⬅ Kembali</a>
+</nav>
+
+<div style="padding:100px 20px; max-width:500px; margin:auto">
+  <h2>Upload Film</h2><br>
+
+  <input id="title" placeholder="Judul Film"><br><br>
+
+  <select id="category">
+    <option>Action</option>
+    <option>Anime</option>
+    <option>Drama</option>
+  </select><br><br>
+
+  <input id="thumbnail" placeholder="URL Thumbnail"><br><br>
+  <input id="videoUrl" placeholder="URL Video"><br><br>
+
+  <textarea id="desc" placeholder="Deskripsi"></textarea><br><br>
+
+  <button onclick="uploadMovie()">Upload</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
