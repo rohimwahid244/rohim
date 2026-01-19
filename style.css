@@ -6,49 +6,69 @@
 }
 
 body {
-  background: #000;
-  color: #fff;
+  background: black;
+  color: white;
 }
 
-/* Navbar */
+/* NAVBAR */
 .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  position: fixed;
-  width: 100%;
   background: linear-gradient(to bottom, black, transparent);
+  z-index: 10;
 }
 
 .logo {
   color: red;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-/* Hero */
+.navbar input {
+  padding: 5px 10px;
+  background: #111;
+  border: none;
+  color: white;
+}
+
+/* HERO */
 .hero {
   height: 80vh;
-  background: url('https://peach.blender.org/wp-content/uploads/title_anouncement.jpg')
-    center/cover;
+  background-size: cover;
+  background-position: center;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  align-items: flex-end;
   padding: 40px;
 }
 
-.hero button {
-  width: 120px;
-  padding: 10px;
-  margin-top: 10px;
-  cursor: pointer;
+.hero-content {
+  max-width: 500px;
 }
 
-/* Movie Row */
+.hero button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ROW */
 .row {
   padding: 20px;
 }
 
+.movies {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+}
+
 .movies img {
-  width: 200px;
+  width: 180px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -57,12 +77,13 @@ body {
   transform: scale(1.1);
 }
 
-/* Player */
+/* PLAYER */
 .player {
   display: none;
   position: fixed;
   inset: 0;
   background: black;
+  z-index: 100;
 }
 
 .player video {
@@ -77,4 +98,3 @@ body {
   font-size: 30px;
   cursor: pointer;
 }
-
