@@ -7,34 +7,33 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <h1 class="logo">ROHIM FILM</h1>
-    <input type="text" placeholder="Search..." />
-  </nav>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <h1 class="logo">NETFLIX</h1>
+  <input id="search" type="text" placeholder="Search film...">
+</nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h2>Big Buck Bunny</h2>
-    <p>Film animasi open movie (legal).</p>
-    <button onclick="playMovie()">▶ Play</button>
-  </section>
-
-  <!-- Movie Row -->
-  <section class="row">
-    <h3>Popular</h3>
-    <div class="movies">
-      <img src="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg"
-           onclick="playMovie()">
-    </div>
-  </section>
-
-  <!-- Video Player -->
-  <div id="player" class="player">
-    <span class="close" onclick="closePlayer()">✕</span>
-    <video id="video" controls></video>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h2 id="heroTitle">Big Buck Bunny</h2>
+    <p id="heroDesc">Film animasi open movie (legal).</p>
+    <button id="heroPlay">▶ Play</button>
   </div>
+</section>
 
-  <script src="script.js"></script>
+<!-- MOVIE LIST -->
+<section class="row">
+  <h3>Popular</h3>
+  <div class="movies" id="movieList"></div>
+</section>
+
+<!-- PLAYER -->
+<div class="player" id="player">
+  <span class="close" onclick="closePlayer()">✕</span>
+  <video id="video" controls></video>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
