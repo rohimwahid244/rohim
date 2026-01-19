@@ -1,16 +1,7 @@
-const hero = document.getElementById("hero");
-const heroTitle = document.getElementById("heroTitle");
-const heroDesc = document.getElementById("heroDesc");
-const heroPlay = document.getElementById("heroPlay");
-const movieList = document.getElementById("movieList");
-const search = document.getElementById("search");
-const categoryTitle = document.getElementById("categoryTitle");
-
-const player = document.getElementById("player");
-const video = document.getElementById("video");
-
-/* DATA FILM + KATEGORI */
-const movies = [
+/* =======================
+   STORAGE
+======================= */
+let movies = JSON.parse(localStorage.getItem("movies")) || [
   {
     title: "Big Buck Bunny",
     category: "Anime",
@@ -18,32 +9,54 @@ const movies = [
     thumbnail: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg",
     video: "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
   },
-  {
-    title: "Sintel",
-    category: "Anime",
-    desc: "Film fantasi open license.",
-    thumbnail: "https://download.blender.org/durian/trailer/sintel_trailer-480p.jpg",
-    video: "https://download.blender.org/durian/movies/sintel-480p.mp4",
-  },
-  {
-    title: "Tears of Steel",
-    category: "Action",
-    desc: "Film sci-fi action.",
-    thumbnail: "https://mango.blender.org/wp-content/uploads/2013/05/blog_post.jpg",
-    video: "https://download.blender.org/ED/tears_of_steel_720p.mov",
-  },
 ];
 
-/* HERO DEFAULT */
-setHero(movies[0]);
+/* SIMPAN */
+function saveMovies() {
+  localStorage.setItem("movies", JSON.stringify(movies));
+}
 
-/* RENDER FILM */
-function renderMovies(list) {
+/* =======================
+   ADMIN UPLOAD
+======================= */
+function uploadMovie() {
+  const title = document.getElementById("title").value;
+  const category = document.getElementById("category").value;
+  const thumbnail = document.getElementById("thumbnail").value;
+  const video = document.getElementById("videoUrl").value;
+  const desc = document.getElementById("desc").value;
+
+  if (!title || !video) {
+    alert("Judul & Video wajib diisi");
+    return;
+  }
+
+  movies.push({ title, category, thumbnail, video, desc });
+  saveMovies();
+
+  alert("Film berhasil diupload!");
+  location.href = "index.html";
+}
+
+/* =======================
+   FRONTEND
+======================= */
+const movieList = document.getElementById("movieList");
+const hero = document.getElementById("hero");
+const heroTitle = document.getElementById("heroTitle");
+const heroDesc = document.getElementById("heroDesc");
+const heroPlay = document.getElementById("heroPlay");
+const player = document.getElementById("player");
+const videoPlayer = document.getElementById("video");
+
+/* RENDER */
+function renderMovies(list = movies) {
+  if (!movieList) return;
   movieList.innerHTML = "";
+
   list.forEach(movie => {
     const img = document.createElement("img");
     img.src = movie.thumbnail;
-    img.title = movie.title;
     img.onclick = () => setHero(movie);
     movieList.appendChild(img);
   });
@@ -59,42 +72,19 @@ function setHero(movie) {
 
 /* PLAYER */
 function playMovie(src) {
-  video.src = src;
+  videoPlayer.src = src;
   player.style.display = "block";
-  video.play();
+  videoPlayer.play();
 }
 
 function closePlayer() {
-  video.pause();
-  video.src = "";
+  videoPlayer.pause();
+  videoPlayer.src = "";
   player.style.display = "none";
 }
 
-/* FILTER CATEGORY */
-function filterCategory(category) {
-  let filtered;
-
-  if (category === "All") {
-    filtered = movies;
-    categoryTitle.textContent = "All Movies";
-  } else {
-    filtered = movies.filter(m => m.category === category);
-    categoryTitle.textContent = category + " Movies";
-  }
-
-  renderMovies(filtered);
+/* LOAD */
+if (movies.length && hero) {
+  setHero(movies[0]);
+  renderMovies();
 }
-
-/* SEARCH */
-search.addEventListener("input", () => {
-  const value = search.value.toLowerCase();
-  const filtered = movies.filter(m =>
-    m.title.toLowerCase().includes(value)
-  );
-  categoryTitle.textContent = "Search Result";
-  renderMovies(filtered);
-});
-
-/* LOAD DEFAULT */
-renderMovies(movies);
-                        
